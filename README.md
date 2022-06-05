@@ -9,4 +9,10 @@ This application uses the following:
 
 When choosing what tech stack I would use to build this application, I evaluated many options based on numerous factors including: scalability, learning curve, application processing speed, memory usage, and security ranking of each technology. Based on these criteria, I narrowed my choice of programming languages to: C#, Python, and Ruby. Ultimately Python was chosen for Django's scalability, and relative ease to develop. Python won since I wanted to empahsize stronger UI and Django coupled with React makes that possible.
 
+# Current Status
+This application is in early development stages. Currently, I am working on:
+-Application Name
+-Application Coding Structure
+-Application Designs (Figma Link and Design Images Coming Soon)
+
 **More Information Coming Soon**
