@@ -1,5 +1,5 @@
 # CU-Processor
-CU-Processor is a browser-based application made for credit unions. Offering a way to process member transactions and other various activities without the need to install a desktop application.
+CU-Processor (name pending) is a browser-based application made for credit unions. Credit unions often rely on software that tends to lack not only intuitive UI, but also features prominent in more modern frameworks. CU-processor seeks to fix that while staying browser for easily portability.
 
 # Technologies
 This application uses the following:
