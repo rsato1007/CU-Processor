@@ -1,5 +1,5 @@
-# CU-Processor
-CU-Processor (name pending) is a browser-based application made for credit unions. Credit unions often rely on software that tends to lack not only intuitive UI, but also features prominent in more modern frameworks. CU-processor seeks to fix that while staying browser for easily portability.
+# CUPal
+CUPal is a browser-based application made for credit unions. Credit unions often rely on software that tends to lack not only intuitive UI, but also features prominent in more modern frameworks. CUPal seeks to fix that while staying browser for easily portability.
 
 # Technologies
 This application uses the following:
@@ -11,8 +11,8 @@ When choosing what tech stack I would use to build this application, I evaluated
 
 # Current Status
 This application is in early development stages. Currently, I am working on:
--Application Name
--Application Coding Structure
--Application Designs (Figma Link and Design Images Coming Soon)
+- ~~Application Name~~
+- Application Coding Structure
+- Application Designs (Figma Link and Design Images Coming Soon)
 
 **More Information Coming Soon**
