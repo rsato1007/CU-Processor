@@ -24,33 +24,73 @@ def uniqueDigits(str):
     return True
 
 # Checks if the member number is comprised of sequential digits with
-# the following format: 1234, 2345, 6789, etc.
+# the following format: 1234, 2345, 6789, etc. So a number like 123466 would fail this test since the first four 
+# meet the criteria we're trying to avoid.
+# Let's revamp this one, it's overkill.
 def countUpCheck(num):
     # For this one, I am thinking of a window based pattern.
-    return True
+    increase_count = 0
+    decrease_count = 0
+    winEnd = 1
+    while winEnd < len(num):
+        # Checks for possible sequential increasing order (12345..etc)
+        if int(num[winEnd - 1]) + 1 == int(num[winEnd]):
+            increase_count += 1
+        else:
+            increase_count = 0
+        # Checks for possible sequential decreasing order (654321...etc)
+        if int(num[winEnd - 1]) - 1 == int(num[winEnd]):
+            decrease_count += 1
+        else:
+            decrease_count = 0
+        if increase_count == len(num) - 1 or decrease_count == len(num) - 1:
+            return True
+        winEnd += 1
+    return False
 
-# This function is meant to test if member number meets our requirements
+# A function designed to be a unit test for the member numebr function to ensure 
+# it's not selecting unsecure numbers for membership (i.e., 123456, 222222, etc.).
+# The function calls two other functions for better organization.
 def testMemberNumber(num):
-    result = "Pass"
+    # Ensures number isn't less than 5 digits or more than 9 digits.
     if num <= 100000 or num >= 1000000000:
-        return "Fail: number out of range."
-    # converts number to string
+        return False
+    # converts number to string for other tests.
     num = str(num)
     if uniqueDigits(num):
-        return "Fail: number needs more unique digits"
+        return False
     if countUpCheck(num):
-        return "Fail: Number is too predictable."
-    return result
+        return False
+    return True
 
-# Function that creates a membernumber that meets certain criteria.
-def createNum():
+# This function provides a secure member number based on criteria
+# mentioned above.
+def createNum(num = None):
     # Maybe this can be a while function that only breaks out once it run through the function tests
     # and has a number that meets those requirements.
-    return
+    if num:
+        # Instead of going through each number one at time, I am going to implement
+        # the ability 
+        valid = testMemberNumber(num)
+        while not valid:
+            num += 1
+            valid = testMemberNumber(num)
+            print(num)
+        print("This is the num being sent back: ", num)
+        return num
+    else:
+        print("No num yet")
+        num = 100011
+        num = createNum(num)
+        return num
 
-print(testMemberNumber(53647)) # Fail
-print(testMemberNumber(111222)) # Fail
-print(testMemberNumber(88888444)) # Fail
-print(testMemberNumber(123456))
-print(testMemberNumber(375536))
-print(testMemberNumber(12345678912)) #Fail
+print("This is the num I got: ", createNum())
+# print(testMemberNumber(53647)) # Fail
+# print(testMemberNumber(111222)) # Fail
+# print(testMemberNumber(88888444)) # Fail
+# print(testMemberNumber(123456)) # Fail
+# print(testMemberNumber(654321)) # Fail
+# print(testMemberNumber(654322)) # Pass
+# print(testMemberNumber(19234567)) # Pass
+# print(testMemberNumber(375536)) # Pass
+# print(testMemberNumber(12345678912)) #Fail

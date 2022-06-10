@@ -12,7 +12,7 @@ When choosing what tech stack I would use to build this application, I evaluated
 # Current Status
 This application is in early development stages. Currently, I am working on:
 - ~~Application Name~~
-- Application Coding Structure
+- Implementing a bare bones ability to open a new membership (no checking, just base savings for now)
 - Application Designs (Figma Link and Design Images Coming Soon)
 
 **More Information Coming Soon**
