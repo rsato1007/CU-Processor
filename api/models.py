@@ -1,12 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
-# Create your models here.
-# Some Models We'll Need:
-# Review the ERD for incorporating these in.
-# Person Model
-
-# Accounts Model/Membership Level
-# For accounts, we'll need to think of something for sub accounts
-
-# Sub accounts
-# 
+# This class is part of Django and allows us to create
+# an abstract user.
+# Documentation can be found here: https://docs.djangoproject.com/en/4.0/topics/auth/customizing/#substituting-a-custom-user-model
+class User(AbstractUser):
+    pass

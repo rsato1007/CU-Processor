@@ -76,10 +76,8 @@ def createNum(num = None):
             num += 1
             valid = testMemberNumber(num)
             print(num)
-        print("This is the num being sent back: ", num)
         return num
     else:
-        print("No num yet")
         num = 100011
         num = createNum(num)
         return num
