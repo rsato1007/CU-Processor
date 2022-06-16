@@ -2,10 +2,34 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-class ListMembers(APIView):
+# This class handles the creation and deletion of new users of the API (i.e., employees of the credit union).
+# class User(APIView):
+    # Post requests will handle the creation of new users to the website. Only users with admin abilities can create a new user.
+    # def post(self, request, format=None):
+        # This post will automatically assign the username to be the user's initials, if the user's intials are already being used by
+        # someone else, then we can add a number to the end for the username. For example if Robert Sato worked there
+        # then his username would be RS. However, if Ralph Sun joins the credit union, his username would be RS1.
+        # Let's also assign the password to something temporary. Maybe we can implement reset password to email or something like that.
+
+# This class handles all member based requests including getting an individual member, creating an individual member, etc.
+class Member(APIView):
     def get(self, request, format=None):
         print("You've submitted a get request")
         return Response("Hello World")
+
+    def post(self, request, format=None):
+        print("You've successfully created a new member")
+        return Response("Thanks for creating a new member bud.")
+
+# This class will handle creating new memberships, editing memberships, and viewing memberships.
+# class Membership(APIView):
+    # This specific request will handle the creation of new memberships
+    # def post(self, request, format=None):
+
+# This class will handle transaction based requests
+# class Transactions(APIView):
+    # This handles transactions done an account including transfers, withdrawals, etc.
+    # def post(self, request, format=None):
 
 
 # Create your views here.
