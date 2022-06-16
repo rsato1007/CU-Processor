@@ -6,6 +6,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 # an abstract user.
 # Documentation can be found here: https://docs.djangoproject.com/en/4.0/topics/auth/customizing/#substituting-a-custom-user-model
 class User(AbstractUser):
+    # 
     pass
 
 class Member(models.Model):
