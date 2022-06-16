@@ -30,7 +30,7 @@ class Member(models.Model):
     ]
     first_name = models.CharField(max_length = 100)
     last_name = models.CharField(max_length = 100)
-    middle_name = models.CharField(max_length = 1, null = True)
+    middle_name = models.CharField(max_length = 100, null = True)
     prefix = models.CharField(max_length= 10, null = True, choices=PREFIX_CHOICES)
     suffix = models.CharField(max_length = 10, null = True, choices=SUFFIX_CHOICES)
     pronouns = models.CharField(max_length = 25, null = True, choices=PRONOUN_CHOICES)
@@ -44,6 +44,7 @@ class Member(models.Model):
     state = models.CharField(max_length=25)
     zip_code = models.CharField(max_length=10)
     email = models.EmailField(null = True)
-    home_number = models.IntegerField(null = True)
-    mobile_number = models.IntegerField(null = True)
-    work_number = models.IntegerField(null = True)
+    # Altered field type from integer to string since I was having issues with min/max values.
+    home_number = models.CharField(max_length=10, null=True)
+    mobile_number = models.CharField(max_length=10, null=True)
+    work_number = models.CharField(max_length=10, null=True)

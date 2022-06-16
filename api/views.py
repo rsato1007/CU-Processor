@@ -22,54 +22,8 @@ class Member(APIView):
         return Response("Hello World")
 
     def post(self, request, format=None):
-        # Current Issue: post data isn't valid.
         serializer = MemberSerializer(data=request.data)
-        print("-----Start------")
-        print(serializer.is_valid())
-        print("-------End------")
         if serializer.is_valid():
-            # first_name = serializer.data.get('first_name')
-            # last_name = serializer.data.get('last_name')
-            # middle_name = serializer.data.get('middle_name')
-            # prefix = serializer.data.get('prefix')
-            # suffix = serializer.data.get('suffix')
-            # pronouns = serializer.data.get('pronouns')
-            # verbal_password = serializer.data.get('verbal_password')
-            # ssn = serializer.data.get('ssn')
-            # date_of_birth = serializer.data.get('date_of_birth')
-            # date_of_death = serializer.data.get('date_of_death')
-            # join_date = serializer.data.get('join_date')
-            # address = serializer.data.get('address')
-            # city = serializer.data.get('city')
-            # state = serializer.data.get('state')
-            # zip_code = serializer.data.get('zip_code')
-            # email = serializer.data.get('email')
-            # home_number = serializer.data.get('home_number')
-            # mobile_number = serializer.data.get('mobile_number')
-            # work_number = serializer.data.get('work_number')
-
-            # member = Member(
-            #     first_name=first_name,
-            #     last_name=last_name,
-            #     middle_name=middle_name,
-            #     prefix=prefix,
-            #     suffix=suffix,
-            #     pronouns=pronouns,
-            #     verbal_password=verbal_password,
-            #     ssn=ssn,
-            #     date_of_birth=date_of_birth,
-            #     date_of_death=date_of_death,
-            #     join_date=join_date,
-            #     address=address,
-            #     city=city,
-            #     state=state,
-            #     zip_code=zip_code,
-            #     email=email,
-            #     home_number=home_number,
-            #     mobile_number=mobile_number,
-            #     work_number=work_number
-            # )
-
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
