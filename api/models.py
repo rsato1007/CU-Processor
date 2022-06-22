@@ -2,11 +2,22 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxValueValidator, MinValueValidator
 
-# This class is part of Django and allows us to create
-# an abstract user.
+# This class implements a model that creates new "employees" of the credit union. It uses most of Django's base fields, but there's a
+# few that are introduced to fit credit union needs including limiting how much money tellers are allowed to release to member
+# before a manager override is required and how mnay fees an employee can refund.
 # Documentation can be found here: https://docs.djangoproject.com/en/4.0/topics/auth/customizing/#substituting-a-custom-user-model
 class User(AbstractUser):
-    # 
+    # inlcude which fields are needed for the user model if using AbstractUser.
+    username = models.CharField(max_length=20, unique=True)
+    email = models.EmailField(unique=True)
+    staff_level = models.IntegerField()
+    # Considering adding a staff title in the future.
+    # staff_title
+    # check_hold_limit = models.integerField()
+    # fee_refund_limit = models.integerField()
+    # Once you start extending the base user model in Django, you'll need to 
+    # include which fields are required.
+    REQUIRED_FIELDS = ['email', 'staff_level']
     pass
 
 class Member(models.Model):
