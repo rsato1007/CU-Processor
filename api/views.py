@@ -5,17 +5,27 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.views import APIView
 from rest_framework.response import Response
 # Internal Imports
-from .serializers import MemberSerializer
-from .models import Member
+from .serializers import MemberSerializer, CreateUserSerializer, UserSerializer
+from .models import Member, User
 # Additional Documentation:
 # Permission classes: https://www.django-rest-framework.org/tutorial/4-authentication-and-permissions/#adding-required-permissions-to-views
 
 # This class handles requests made to create, alter, or delete users.
 class Users(APIView):
     permission_classes = [IsAuthenticated and IsAdminUser]
+    serializer_class = CreateUserSerializer
     # Post requests will handle the creation of new users to the website. Only users with admin abilities can create a new user.
     def post(self, request, format=None):
-        print("You've created a user")
+        request.data._mutable = True
+        request.data['username'] = "RS"
+        request.data._mutable = False
+        print(request.data)
+        serializer = CreateUserSerializer(data=request.data)
+        if serializer.is_valid():
+            print("User Information Valid")
+        else:
+            print("User Information Invalid")
+            print(serializer.errors)
         return Response("User created")
         # This post will automatically assign the username to be the user's initials, if the user's intials are already being used by
         # someone else, then we can add a number to the end for the username. For example if Robert Sato worked there
@@ -23,8 +33,9 @@ class Users(APIView):
         # Let's also assign the password to something temporary. Maybe we can implement reset password to email or something like that.
     
     def get(self, request, format=None):
-        print("You've requested a user!")
-        return Response("User sent back")
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data)
 
 # This class handles all member based requests including getting an individual member, creating an individual member, etc.
 class Members(APIView):
@@ -36,14 +47,19 @@ class Members(APIView):
         # For now this returns all members, but I will implement query string search.
         results = Member.objects.all()
         serializer = MemberSerializer(results, many=True)
+        # For now, I am going to remove the ability for non-admins to see SSN for security purposes.
+        for data in serializer.data:
+            data['ssn'] = "#########"
         return Response(serializer.data)
 
     def post(self, request, format=None):
         serializer = MemberSerializer(data=request.data)
         if serializer.is_valid():
+            print("Member Information Valid")
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
+            print(serializer.errors)
             return Response({'Bad Request': 'Invalid data...'}, status=status.HTTP_400_BAD_REQUEST)
 
 # This class will handle creating new memberships, editing memberships, and viewing memberships.

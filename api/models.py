@@ -9,6 +9,8 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 class User(AbstractUser):
     # inlcude which fields are needed for the user model if using AbstractUser.
     username = models.CharField(max_length=20, unique=True)
+    first_name = models.CharField(max_length = 100)
+    last_name = models.CharField(max_length = 100)
     email = models.EmailField(unique=True)
     staff_level = models.IntegerField()
     # Considering adding a staff title in the future.
@@ -17,8 +19,7 @@ class User(AbstractUser):
     # fee_refund_limit = models.integerField()
     # Once you start extending the base user model in Django, you'll need to 
     # include which fields are required.
-    REQUIRED_FIELDS = ['email', 'staff_level']
-    pass
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'email', 'staff_level']
 
 class Member(models.Model):
     # Documentation on choice field options can be found here: https://docs.djangoproject.com/en/4.0/ref/models/fields/#django.db.models.Field.choices
