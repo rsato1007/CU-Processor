@@ -13,16 +13,36 @@ from .models import Member, User
 # This class handles requests made to create, alter, or delete users.
 class Users(APIView):
     permission_classes = [IsAuthenticated and IsAdminUser]
+    # I have a seperate serializer so the username field doesn't show up in the API for Django Rest Framework.
+    # Eventually I will look to change this.
     serializer_class = CreateUserSerializer
     # Post requests will handle the creation of new users to the website. Only users with admin abilities can create a new user.
     def post(self, request, format=None):
+        # The API handles assigning a username to the employee.
+        # It will generate a username based on employee's first and last name.
+        # If username exists already, it will add a number until it finds a unique username.
+        username = ''
+        username += request.data['first_name'][0].upper()
+        username += request.data['last_name'][0:3].upper()
+        num = 0
+        temp_username = username
+        unique = User.objects.filter(username=temp_username).exists()
+        # Checks the database and adds a number until the username is unique.
+        while unique:
+            num += 1
+            temp_username = username + str(num)
+            unique =  User.objects.filter(username=temp_username).exists()
+        username = temp_username
+        
         request.data._mutable = True
-        request.data['username'] = "RS"
+        request.data['username'] = username
         request.data._mutable = False
-        print(request.data)
-        serializer = CreateUserSerializer(data=request.data)
+
+        serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             print("User Information Valid")
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             print("User Information Invalid")
             print(serializer.errors)
